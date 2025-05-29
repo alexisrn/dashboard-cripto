@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Header } from "@/components/layout/Header";
 import { AboutHome } from "@/components/aboutHome";
+import CryptoTable from "@/components/CryptoTable";
 
 
 const geistSans = Geist({
@@ -22,6 +23,7 @@ export default function Home() {
   <div className="tech-grid">
      <Header  />
      <AboutHome />
+     <CryptoTable />
      </div>
     </>
   );
