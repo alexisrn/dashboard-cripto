@@ -12,15 +12,10 @@ export const Header = () => {
         <S.LeftGroup>
           <S.IconWrapper>
             <TrendingUp className="icon" />
-            <S.IconGlow />
           </S.IconWrapper>
 
           <S.TitleGroup>
             <S.Title>CryptoCheck</S.Title>
-            <S.SubtitleWrapper>
-              <Zap className="zap-icon" />
-              <S.Subtitle>Criptomoedas em tempo real</S.Subtitle>
-            </S.SubtitleWrapper>
           </S.TitleGroup>
         </S.LeftGroup>
 

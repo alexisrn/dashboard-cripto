@@ -15,6 +15,8 @@ const bounceSubtle = keyframes`
   50% { transform: translateY(-2px); }
 `;
 
+
+
 export const Container = styled.header`
   position: sticky;
   top: 0;
@@ -22,26 +24,37 @@ export const Container = styled.header`
   backdrop-filter: blur(16px);
   background-color: rgba(15, 23, 42, 0.5);
   border-bottom: 1px solid rgba(100, 116, 139, 0.25);
+  height: 100px;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export const InnerWrapper = styled.div`
   max-width: 1380px;
   margin: 0 auto;
-  padding: 1.5rem 0rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
 `;
 
 export const LeftGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 `;
 
 export const IconWrapper = styled.div`
   position: relative;
-  padding: 0.60rem;
+  padding: 0.8rem;
   border-radius: 1rem;
   background: linear-gradient(to bottom right, #3b82f6, #8b5cf6, #22c55e);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -56,22 +69,14 @@ export const IconWrapper = styled.div`
   }
 `;
 
-export const IconGlow = styled.div`
-  position: absolute;
-  inset: 0;
-  border-radius: 1rem;
-  background: linear-gradient(to bottom right, #3b82f6, #8b5cf6, #22c55e);
-  filter: blur(8px);
-  opacity: 0.7;
-  animation: ${pulseGlow} 3s ease-in-out infinite;
-`;
-
 export const TitleGroup = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const Title = styled.h1`
-  font-size: 26px;
+  font-size: 1.625rem;
   font-weight: 700;
   background: linear-gradient(to right, #3b82f6, #8b5cf6, #22c55e);
   -webkit-background-clip: text;
@@ -82,7 +87,7 @@ export const SubtitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.25rem;
+ 
 
   .zap-icon {
     height: 1rem;
@@ -102,6 +107,10 @@ export const Subtitle = styled.p`
 export const SearchWrapper = styled.div`
   position: relative;
   width: 20rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const SearchBackground = styled.div`

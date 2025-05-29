@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Header } from "@/components/layout/Header";
+import { AboutHome } from "@/components/aboutHome";
 
 
 const geistSans = Geist({
@@ -18,7 +19,10 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <>
+  <div className="tech-grid">
      <Header  />
+     <AboutHome />
+     </div>
     </>
   );
 }
