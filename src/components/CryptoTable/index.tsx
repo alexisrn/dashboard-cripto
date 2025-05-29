@@ -1,9 +1,8 @@
 // components/CryptoTable.tsx
 "use client";
-import React, { useEffect, useState } from "react";
-import * as S from './styles'
-import axios from "axios";
 
+import React from "react";
+import * as S from './styles';
 
 interface Crypto {
   id: string;
@@ -16,6 +15,10 @@ interface Crypto {
   market_cap_rank: number;
 }
 
+interface CryptoTableProps {
+  data: Crypto[];
+  searchTerm: string;
+}
 
 const formatCurrency = (value: number) =>
   value.toLocaleString("en-US", {
@@ -23,68 +26,49 @@ const formatCurrency = (value: number) =>
     currency: "USD",
   });
 
-const CryptoTable: React.FC = () => {
-  const [data, setData] = useState<Crypto[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        {
-          params: {
-            vs_currency: "usd",
-            order: "market_cap_desc",
-            per_page: 30,
-            page: 1,
-            sparkline: false,
-          },
-        }
-      );
-      setData(res.data);
-    };
-
-    fetchData();
-  }, []);
+const CryptoTable: React.FC<CryptoTableProps> = ({ data, searchTerm }) => {
+  const filteredData = data.filter((coin) =>
+    coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <>
     <S.Container>
-    <S.TableWrapper>
-      <S.StyledTable>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Moeda</th>
-            <th>Preço</th>
-            <th>24h</th>
-            <th>Market Cap</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((coin) => (
-            <tr key={coin.id}>
-              <td>{coin.market_cap_rank}</td>
-              <td>
-                <S.CoinName>
-                  <img src={coin.image} alt={coin.name} />
-                  <div>
-                    <span>{coin.name}</span>
-                    <small>{coin.symbol.toUpperCase()}</small>
-                  </div>
-                </S.CoinName>
-              </td>
-              <td>{formatCurrency(coin.current_price)}</td>
-              <S.PriceChange change={coin.price_change_percentage_24h}>
-                {coin.price_change_percentage_24h?.toFixed(2)}%
-              </S.PriceChange>
-              <td>{formatCurrency(coin.market_cap)}</td>
+      <S.TableWrapper>
+        <S.StyledTable>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Moeda</th>
+              <th>Preço</th>
+              <th>24h</th>
+              <th>Market Cap</th>
             </tr>
-          ))}
-        </tbody>
-      </S.StyledTable>
-    </S.TableWrapper>
+          </thead>
+          <tbody>
+            {filteredData.map((coin) => (
+              <tr key={coin.id}>
+                <td>{coin.market_cap_rank}</td>
+                <td>
+                  <S.CoinName>
+                    <img src={coin.image} alt={coin.name} />
+                    <div>
+                      <span>{coin.name}</span>
+                      <small>{coin.symbol.toUpperCase()}</small>
+                    </div>
+                  </S.CoinName>
+                </td>
+                <td>{formatCurrency(coin.current_price)}</td>
+                <S.PriceChange change={coin.price_change_percentage_24h}>
+                  {coin.price_change_percentage_24h?.toFixed(2)}%
+                </S.PriceChange>
+                <td>{formatCurrency(coin.market_cap)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </S.StyledTable>
+      </S.TableWrapper>
     </S.Container>
-    </>
   );
 };
 
